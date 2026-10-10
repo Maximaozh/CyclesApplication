@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cyclesapplication.ui.theme.CyclesApplicationTheme
@@ -49,7 +51,19 @@ class AppState {
 
 @Composable
 fun InputField(state: AppState) {
+    OutlinedTextField(
+        value = state.inputText,
 
+        onValueChange = { newText ->
+            if (newText.all { it.isDigit() } || newText.isEmpty()) {
+                state.inputText = newText
+            }
+        },
+
+        label = { Text("Введите число") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        modifier = Modifier.padding(bottom = 8.dp)
+    )
 }
 
 @Composable
