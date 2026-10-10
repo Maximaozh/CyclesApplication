@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cyclesapplication.ui.theme.CyclesApplicationTheme
+import java.math.BigInteger
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -46,7 +49,6 @@ class MainActivity : ComponentActivity() {
 class AppState {
     var inputText by mutableStateOf("")
     var resultText by mutableStateOf("")
-    var numberValue by mutableStateOf(0)
 }
 
 @Composable
@@ -80,12 +82,48 @@ fun ResultTextField(state: AppState) {
 
 @Composable
 fun ProcessDataButton(state: AppState) {
-
+    Button(
+        onClick = { OnProccessDataButton(state) }
+    ) {
+        Text("Обработать")
+    }
 }
 
-fun OnProccessDataButton(N: Int)
+fun OnProccessDataButton(state: AppState)
 {
+    var n = state.inputText.toInt();
+    if (n == 0)
+    {
+        state.resultText = "Н оказался 0"
+        return;
+    }
 
+    if (n > 20) {
+        state.resultText = "Н слишком большое"
+        return
+    }
+
+
+    var factorial: Long = 1; // Для расчёта факториала
+    for (i in 2..n)
+    {
+        factorial = factorial * i;
+    }
+
+
+    var k: Long = 1
+    while (true) {
+        val product = k * (k + 1) * (k + 2)
+        if (product == factorial) {
+            state.resultText = "$factorial ($k, ${k+1}, ${k+2})"
+            return
+        }
+        if (product > factorial) {
+            state.resultText = "$factorial (нет тройки)"
+            return
+        }
+        k++
+    }
 }
 
 @Preview
