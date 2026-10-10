@@ -91,6 +91,12 @@ fun ProcessDataButton(state: AppState) {
 
 fun OnProccessDataButton(state: AppState)
 {
+    if (state.inputText == "")
+    {
+        state.resultText = "Н оказался пустым"
+        return;
+    }
+
     var n = state.inputText.toInt();
     if (n == 0)
     {
@@ -112,12 +118,15 @@ fun OnProccessDataButton(state: AppState)
 
 
     var k: Long = 1
+
     while (true) {
         val product = k * (k + 1) * (k + 2)
+
         if (product == factorial) {
             state.resultText = "$factorial ($k, ${k+1}, ${k+2})"
             return
         }
+
         if (product > factorial) {
             state.resultText = "$factorial (нет тройки)"
             return
