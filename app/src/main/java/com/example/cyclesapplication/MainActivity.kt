@@ -45,29 +45,31 @@ class AppState {
 }
 
 @Composable
-fun InputField() {
+fun InputField(state: AppState) {
 }
 
 @Composable
-fun ResultTextField() {
+fun ResultTextField(state: AppState) {
 
 }
 
 
 @Composable
-fun ProcessDataButton() {
+fun ProcessDataButton(state: AppState) {
 
 }
 
 @Preview
 @Composable
 fun MainLayout() {
+    val state = remember { AppState() }
+
     Column(
         modifier = Modifier.padding(16.dp)
     )
     {
-        InputField();
-        ResultTextField();
-        ProcessDataButton();
+        InputField(state);
+        ResultTextField(state);
+        ProcessDataButton(state);
     }
 }
