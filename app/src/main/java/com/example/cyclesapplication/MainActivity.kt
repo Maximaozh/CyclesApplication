@@ -46,11 +46,18 @@ class AppState {
 
 @Composable
 fun InputField(state: AppState) {
+
 }
 
 @Composable
 fun ResultTextField(state: AppState) {
-
+    OutlinedTextField(
+        value = state.resultText,
+        onValueChange = { },
+        readOnly = true,
+        label = { Text("Результат") },
+        modifier = Modifier.padding(bottom = 8.dp)
+    )
 }
 
 
